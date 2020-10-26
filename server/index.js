@@ -2,6 +2,15 @@ const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const app = express();
 const schema = require('./schema/schema');
+const mongoose = require('mongoose');
+
+mongoose.connect(
+  'mongodb://localhost:27017/',
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log('Database Connected');
+  }
+);
 
 app.use(
   '/graphql',

@@ -9,21 +9,6 @@ const {
   GraphQLList,
 } = graphQl;
 
-//dummy data
-
-let books = [
-  { name: 'freedom at midnight', genre: '1', id: '1', authorId: '1' },
-  { name: 'bombay 1947', genre: '1', id: '2', authorId: '2' },
-  { name: 'churchill and india', genre: '2', id: '3', authorId: '3' },
-  { name: 'feriha', genre: '2', id: '3', authorId: '1' },
-];
-
-let authors = [
-  { name: 'Patrick', age: 44, id: '1' },
-  { name: 'Brandon', age: 27, id: '2' },
-  { name: 'Tolkien', age: 76, id: '3' },
-];
-
 const BookType = new GraphQLObjectType({
   name: 'book',
   fields: () => ({
