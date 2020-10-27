@@ -1,5 +1,4 @@
 const graphQl = require('graphql');
-const lodash = require('lodash');
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -21,7 +20,7 @@ const BookType = new GraphQLObjectType({
     author: {
       type: AuthorType,
       resolve(parent, args) {
-        // return lodash.find(authors, { id: parent.id });
+        return Author.findById(parent.authorId);
       },
     },
   }),
@@ -36,7 +35,7 @@ const AuthorType = new GraphQLObjectType({
     books: {
       type: new GraphQLList(BookType),
       resolve(parent, args) {
-        // return lodash.filter(books, { authorId: parent.id });
+        return Book.find({ authorId: parent.id });
       },
     },
   }),
@@ -51,9 +50,9 @@ const rootQuery = new GraphQLObjectType({
         id: { type: GraphQLID },
       },
       resolve(parent, args) {
-        // return lodash.find(books, { id: args.id });
+        return Book.findById(args.id);
       },
-    },
+    }, //get single book
 
     author: {
       type: AuthorType,
@@ -61,23 +60,23 @@ const rootQuery = new GraphQLObjectType({
         id: { type: GraphQLID },
       },
       resolve(parent, args) {
-        // return lodash.find(authors, { id: args.id });
+        return Author.findById(args.id);
       },
-    },
+    }, //get single author
 
     books: {
       type: new GraphQLList(BookType),
       resolve(parent, args) {
-        return books;
+        return Book.find({});
       },
-    },
+    }, // show all books
 
     authors: {
       type: new GraphQLList(AuthorType),
       resolve(parent, args) {
-        return authors;
+        return Author.find({});
       },
-    },
+    }, //show all authors
   },
 });
 
@@ -96,7 +95,7 @@ const Mutation = new GraphQLObjectType({
           age: args.age,
         });
         return author.save();
-      },
+      }, // add an author
     },
     addBook: {
       type: BookType,
@@ -113,7 +112,7 @@ const Mutation = new GraphQLObjectType({
         });
 
         return book.save();
-      },
+      }, // add a book
     },
   },
 });
