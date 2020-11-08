@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { getBooksQuery } from '../queries/queries';
 import BookDetails from './BookDetails';
+import DeleteBook from './DeleteBook';
 
 class BookList extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class BookList extends Component {
             }}
           >
             {book.name}
+            <DeleteBook bookId={book.id} />
           </li>
         );
       });
